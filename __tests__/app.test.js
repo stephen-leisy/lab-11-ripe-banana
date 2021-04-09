@@ -11,7 +11,7 @@ describe('lab-11-ripe-banana routes', () => {
   let Studios;
   beforeEach(() => {
     Studios = Studio.create({
-      name: 'Laika',
+      name: 'Also Laika',
       city: 'Hillsboro',
       state: 'OR',
       country: 'US of A',
@@ -45,7 +45,7 @@ describe('lab-11-ripe-banana routes', () => {
         expect(res.body).toEqual([
           {
             id: 1,
-            name: 'Laika',
+            name: 'Also Laika',
             city: 'Hillsboro',
             state: 'OR',
             country: 'US of A',
