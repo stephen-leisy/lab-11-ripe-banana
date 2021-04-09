@@ -53,4 +53,18 @@ describe('lab-11-ripe-banana routes', () => {
         ]);
       });
   });
+
+  it('returns a studio by id', () => {
+    return request(app)
+      .get('/api/v1/studios/1')
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: 1,
+          name: 'Also Laika',
+          city: 'Hillsboro',
+          state: 'OR',
+          country: 'US of A',
+        });
+      });
+  });
 });
