@@ -129,3 +129,25 @@ describe('Actor routes', () => {
       });
   });
 });
+
+describe('Review routes', () => {
+  beforeEach(() => {
+    return db.sync({ force: true });
+  });
+
+  it('creates a reviewer', () => {
+    return request(app)
+      .post('/api/v1/reviewers/')
+      .send({
+        name: 'Michael Scott',
+        company: 'Paper Company'
+      })
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: 1,
+        name: 'Michael Scott',
+        company: 'Paper Company'
+        });
+      });
+  });
+});
