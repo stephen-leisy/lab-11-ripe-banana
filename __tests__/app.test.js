@@ -170,8 +170,22 @@ describe('Review routes', () => {
             name: 'Dwight Schrute',
             company: 'Schrute Farms'
           }
-        ])
-      })
+        ]);
+      });
+  });
+
+  it('gets reviewer by Id', () => {
+    return request(app)
+      .get('/api/v1/reviwers/1')
+      .then((res) => {
+        expect(res.body).toEqual(
+          {
+            id: 1,
+            name: 'Dwight Schrute',
+            company: 'Schrute Farms'
+          }
+        );
+      });
   });
 
 });
