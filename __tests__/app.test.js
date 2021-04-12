@@ -115,4 +115,17 @@ describe('Actor routes', () => {
         ]);
       });
   });
+
+  it('returns an actor', () => {
+    return request(app)
+      .get('/api/v1/actors/1')
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: 1,
+          name: 'Tom Cruise',
+          dob: '1962-07-03',
+          pob: 'Syracuse, NY',
+        });
+      });
+  });
 });
