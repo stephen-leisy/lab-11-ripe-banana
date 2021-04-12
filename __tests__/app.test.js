@@ -218,24 +218,19 @@ describe('film routes', () => {
 
   let actors;
   beforeEach(() => {
-    actors = Actor.create([
+    actors = Actor.create(
       {
         name: 'Michael Gary Scott',
         dob: '1965-03-15',
         pob: 'Scranton, PA'
-      },
-      {
-        name: 'Dwight Schrute',
-        dob: '1970-01-20',
-        pob: 'Scranton, PA'
       }
-    ]);
+    );
   });
 
   let studios;
   beforeEach(() => {
     studios = Studio.create({
-      name: 'Micael Scott Productions',
+      name: 'Michael Scott Productions',
       city: 'Scranton',
       state: 'PA',
       country: 'USA',
@@ -253,10 +248,6 @@ describe('film routes', () => {
           {
             role: 'Michael Scarn',
             actor: 1
-          },
-          {
-            role: 'Dwigt',
-            actor: 2
           }
         ]
       })
@@ -266,16 +257,12 @@ describe('film routes', () => {
           title: 'Threat Level Midnight',
           studio: 1,
           released: 2007,
-          cast: [
-            {
-              role: 'Michael Scarn',
-              actor: 1
-            },
-            {
-              role: 'Dwigt',
-              actor: 2
-            }
-          ]
+        cast: [
+          {
+            role: 'Michael Scarn',
+            actor: 1
+          }
+        ]
       });
       });
   });
