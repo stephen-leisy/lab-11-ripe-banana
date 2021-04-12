@@ -79,14 +79,14 @@ describe('Actor routes', () => {
       .post('/api/v1/actors')
       .send({
         name: 'Val Kilmer',
-        dob: '31/12/1959',
+        dob: '1959-12-31',
         pob: 'Los Angeles, CA',
       })
       .then((res) => {
         expect(res.body).toEqual({
           id: 1,
           name: 'Val Kilmer',
-          dob: '31/12/1959',
+          dob: '1959-12-31',
           pob: 'Los Angeles, CA',
         });
       });
