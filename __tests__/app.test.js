@@ -145,8 +145,8 @@ describe('Review routes', () => {
       .then((res) => {
         expect(res.body).toEqual({
           id: 1,
-        name: 'Michael Scott',
-        company: 'Paper Company'
+          name: 'Michael Scott',
+          company: 'Paper Company'
         });
       });
   });
