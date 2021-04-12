@@ -210,3 +210,30 @@ describe('Review routes', () => {
   });
 
 });
+
+describe('Reviews routes', () => {
+  beforeEach(() => {
+    return db.sync({ force: true });
+  });
+
+  it('creates a review', () => {
+    return request(app)
+      .post('/api/v1/reviews/')
+      .send({
+        rating: 5,
+        reviewer: 1,
+        review: 'Best movie ever',
+        film: 1
+      })
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: 1, 
+          rating: 5,
+          reviewer: 1,
+          review: 'Best movie ever',
+          film: 1
+        });
+      });
+  });
+  
+});
