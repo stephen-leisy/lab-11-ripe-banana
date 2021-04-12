@@ -4,6 +4,7 @@ const app = require('../lib/app');
 const db = require('../lib/utils/database');
 const Studio = require('../lib/models/Studio');
 const Actor = require('../lib/models/Actor');
+const Reviewer = require('../lib/models/Reviewer');
 
 describe('Studio routes', () => {
   beforeEach(() => {
@@ -135,6 +136,14 @@ describe('Review routes', () => {
     return db.sync({ force: true });
   });
 
+  let reviewers;
+  beforeEach(() => {
+    reviewers = Reviewer.create({
+      name: 'Dwight Schrute',
+      company: 'Schrute Farms'
+    })
+  })
+
   it('creates a reviewer', () => {
     return request(app)
       .post('/api/v1/reviewers/')
@@ -144,10 +153,25 @@ describe('Review routes', () => {
       })
       .then((res) => {
         expect(res.body).toEqual({
-          id: 1,
+          id: 2,
           name: 'Michael Scott',
           company: 'Paper Company'
         });
       });
   });
+
+  it('gets all reviewers', () => {
+    return request(app)
+      .get('/api/v1/reviewers/')
+      .then((res) => {
+        expect(res.body).toEqual([
+          {
+            id: 1,
+            name: 'Dwight Schrute',
+            company: 'Schrute Farms'
+          }
+        ])
+      })
+  });
+
 });
