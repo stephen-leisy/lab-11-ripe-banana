@@ -211,29 +211,70 @@ describe('Review routes', () => {
 
 });
 
-describe('Reviews routes', () => {
+describe('film routes', () => {
   beforeEach(() => {
     return db.sync({ force: true });
   });
 
-  it('creates a review', () => {
+  let actors;
+  beforeEach(() => {
+    actors = Actor.create({
+      name: 'Michael Gary Scott',
+      dob: '1965-03-15',
+      pob: 'Scranton, PA'
+    });
+  });
+
+  it('creates a film', () => {
     return request(app)
-      .post('/api/v1/reviews/')
+      .post('/api/v1/films')
       .send({
-        rating: 5,
-        reviewer: 1,
-        review: 'Best movie ever',
-        film: 1
+        title: 'Threat Level Midnight',
+        studio: 'Michael Scott Productions',
+        released: 2007,
+        cast: [{
+          role: 'Michael Scarn',
+          actor: 1
+        }]
       })
       .then((res) => {
         expect(res.body).toEqual({
-          id: 1, 
-          rating: 5,
-          reviewer: 1,
-          review: 'Best movie ever',
-          film: 1
+          title: 'Threat Level Midnight',
+          studio: 'Michael Scott Productions',
+          released: 2007,
+          cast: [{
+            role: 'Michael Scarn',
+            actor: 1
+        }]
         });
       });
   });
-  
+
+});
+
+// describe('Reviews routes', () => {
+//   beforeEach(() => {
+//     return db.sync({ force: true });
+//   });
+
+//   it('creates a review', () => {
+//     return request(app)
+//       .post('/api/v1/reviews/')
+//       .send({
+//         rating: 5,
+//         reviewer: 1,
+//         review: 'Best movie ever',
+//         film: 1
+//       })
+//       .then((res) => {
+//         expect(res.body).toEqual({
+//           id: 1, 
+//           rating: 5,
+//           reviewer: 1,
+//           review: 'Best movie ever',
+//           film: 1
+//         });
+//       });
+//   });
+
 });
