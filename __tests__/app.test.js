@@ -190,18 +190,15 @@ describe('Review routes', () => {
 
   it('updates reviewer', () => {
     return request(app)
-      .put('api/v1/reviewers/1')
-      .send({
-        name: 'Dwight Schrute',
-        company: 'Schrute Beet Farms'
-      })
+      .patch('/api/v1/reviewers/1')
+      .send({ company: 'Schrute Beet Farms' })
       .then((res) => {
         expect(res.body).toEqual({
           id: 1,
           name: 'Dwight Schrute',
           company: 'Schrute Beet Farms'
-        })
-      })
-  })
+        });
+      });
+  });
 
 });
