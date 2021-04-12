@@ -3,14 +3,15 @@ const request = require('supertest');
 const app = require('../lib/app');
 const db = require('../lib/utils/database');
 const Studio = require('../lib/models/Studio');
+const Actor = require('../lib/models/Actor');
 
 describe('Studio routes', () => {
   beforeEach(() => {
     return db.sync({ force: true });
   });
-  let Studios;
+  let studios;
   beforeEach(() => {
-    Studios = Studio.create({
+    studios = Studio.create({
       name: 'Also Laika',
       city: 'Hillsboro',
       state: 'OR',
@@ -73,6 +74,14 @@ describe('Actor routes', () => {
   beforeEach(() => {
     return db.sync({ force: true });
   });
+  let actors;
+  beforeEach(() => {
+    actors = Actor.create({
+      name: 'Tom Cruise',
+      dob: '1962-07-03',
+      pob: 'Syracuse, NY',
+    });
+  });
 
   it('posts an actor to the actor db', () => {
     return request(app)
@@ -84,11 +93,26 @@ describe('Actor routes', () => {
       })
       .then((res) => {
         expect(res.body).toEqual({
-          id: 1,
+          id: 2,
           name: 'Val Kilmer',
           dob: '1959-12-31',
           pob: 'Los Angeles, CA',
         });
+      });
+  });
+
+  it('returns all actors', () => {
+    return request(app)
+      .get('/api/v1/actors')
+      .then((res) => {
+        expect(res.body).toEqual([
+          {
+            id: 1,
+            name: 'Tom Cruise',
+            dob: '1962-07-03',
+            pob: 'Syracuse, NY',
+          },
+        ]);
       });
   });
 });
