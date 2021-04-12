@@ -176,7 +176,7 @@ describe('Review routes', () => {
 
   it('gets reviewer by Id', () => {
     return request(app)
-      .get('/api/v1/reviwers/1')
+      .get('/api/v1/reviewers/1')
       .then((res) => {
         expect(res.body).toEqual(
           {
