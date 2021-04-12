@@ -5,6 +5,7 @@ const db = require('../lib/utils/database');
 const Studio = require('../lib/models/Studio');
 const Actor = require('../lib/models/Actor');
 const Reviewer = require('../lib/models/Reviewer');
+const Film = require('../lib/models/Film');
 
 describe('Studio routes', () => {
   beforeEach(() => {
@@ -48,9 +49,6 @@ describe('Studio routes', () => {
           {
             id: 1,
             name: 'Also Laika',
-            city: 'Hillsboro',
-            state: 'OR',
-            country: 'US of A',
           },
         ]);
       });
@@ -208,9 +206,28 @@ describe('Review routes', () => {
   });
 });
 
-describe('film routes', () => {
+describe.only('film routes', () => {
   beforeEach(() => {
     return db.sync({ force: true });
+  });
+
+  let films;
+  beforeEach(() => {
+    films = Film.create({
+      title: 'Threat Level Midnight Too',
+      studio: 1,
+      released: 2007,
+      cast: [
+        {
+          role: 'Michael Scarn',
+          actor: 1,
+        },
+        {
+          role: 'Dwigt',
+          actor: 2,
+        },
+      ],
+    });
   });
 
   let actors;
@@ -244,11 +261,15 @@ describe('film routes', () => {
             role: 'Michael Scarn',
             actor: 1,
           },
+          {
+            role: 'Dwigt',
+            actor: 2,
+          },
         ],
       })
       .then((res) => {
         expect(res.body).toEqual({
-          id: 1,
+          id: 2,
           title: 'Threat Level Midnight',
           studio: 1,
           released: 2007,
@@ -257,8 +278,30 @@ describe('film routes', () => {
               role: 'Michael Scarn',
               actor: 1,
             },
+            {
+              role: 'Dwigt',
+              actor: 2,
+            },
           ],
         });
+      });
+  });
+
+  it('gets all films', () => {
+    return Request(app)
+      .get('/api/v1/films')
+      .then((res) => {
+        expect(res.body).toEqual([
+          {
+            id: 1,
+            title: 'Threat Level Midnight Too',
+            released: 2007,
+            studio: {
+              id: 1,
+              name: 'Michael Scott Productions',
+            },
+          },
+        ]);
       });
   });
 });
