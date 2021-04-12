@@ -140,22 +140,22 @@ describe('Review routes', () => {
   beforeEach(() => {
     reviewers = Reviewer.create({
       name: 'Dwight Schrute',
-      company: 'Schrute Farms'
-    })
-  })
+      company: 'Schrute Farms',
+    });
+  });
 
   it('creates a reviewer', () => {
     return request(app)
       .post('/api/v1/reviewers/')
       .send({
         name: 'Michael Scott',
-        company: 'Paper Company'
+        company: 'Paper Company',
       })
       .then((res) => {
         expect(res.body).toEqual({
           id: 2,
           name: 'Michael Scott',
-          company: 'Paper Company'
+          company: 'Paper Company',
         });
       });
   });
@@ -168,8 +168,8 @@ describe('Review routes', () => {
           {
             id: 1,
             name: 'Dwight Schrute',
-            company: 'Schrute Farms'
-          }
+            company: 'Schrute Farms',
+          },
         ]);
       });
   });
@@ -178,13 +178,11 @@ describe('Review routes', () => {
     return request(app)
       .get('/api/v1/reviewers/1')
       .then((res) => {
-        expect(res.body).toEqual(
-          {
-            id: 1,
-            name: 'Dwight Schrute',
-            company: 'Schrute Farms'
-          }
-        );
+        expect(res.body).toEqual({
+          id: 1,
+          name: 'Dwight Schrute',
+          company: 'Schrute Farms',
+        });
       });
   });
 
@@ -196,7 +194,7 @@ describe('Review routes', () => {
         expect(res.body).toEqual({
           id: 1,
           name: 'Dwight Schrute',
-          company: 'Schrute Beet Farms'
+          company: 'Schrute Beet Farms',
         });
       });
   });
@@ -208,7 +206,6 @@ describe('Review routes', () => {
         expect(res.body).toEqual({ success: '👍' });
       });
   });
-
 });
 
 describe('film routes', () => {
@@ -218,13 +215,11 @@ describe('film routes', () => {
 
   let actors;
   beforeEach(() => {
-    actors = Actor.create(
-      {
-        name: 'Michael Gary Scott',
-        dob: '1965-03-15',
-        pob: 'Scranton, PA'
-      }
-    );
+    actors = Actor.create({
+      name: 'Michael Gary Scott',
+      dob: '1965-03-15',
+      pob: 'Scranton, PA',
+    });
   });
 
   let studios;
@@ -234,8 +229,8 @@ describe('film routes', () => {
       city: 'Scranton',
       state: 'PA',
       country: 'USA',
-    })
-  })
+    });
+  });
 
   it('creates a film', () => {
     return request(app)
@@ -247,9 +242,9 @@ describe('film routes', () => {
         cast: [
           {
             role: 'Michael Scarn',
-            actor: 1
-          }
-        ]
+            actor: 1,
+          },
+        ],
       })
       .then((res) => {
         expect(res.body).toEqual({
@@ -257,16 +252,15 @@ describe('film routes', () => {
           title: 'Threat Level Midnight',
           studio: 1,
           released: 2007,
-        cast: [
-          {
-            role: 'Michael Scarn',
-            actor: 1
-          }
-        ]
-      });
+          cast: [
+            {
+              role: 'Michael Scarn',
+              actor: 1,
+            },
+          ],
+        });
       });
   });
-
 });
 
 // describe('Reviews routes', () => {
@@ -285,7 +279,7 @@ describe('film routes', () => {
 //       })
 //       .then((res) => {
 //         expect(res.body).toEqual({
-//           id: 1, 
+//           id: 1,
 //           rating: 5,
 //           reviewer: 1,
 //           review: 'Best movie ever',

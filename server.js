@@ -1,5 +1,5 @@
 const app = require('./lib/app');
-const db = require('./lib/utils/database');
+require('./lib/models/associations');
 
 const PORT = process.env.PORT || 7890;
 
@@ -10,5 +10,5 @@ app.listen(PORT, () => {
 
 process.on('exit', () => {
   console.log('Goodbye!');
-  db.end();
+  // pool.end();
 });
