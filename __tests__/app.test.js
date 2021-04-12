@@ -201,4 +201,12 @@ describe('Review routes', () => {
       });
   });
 
+  it('deletes the reviewer', () => {
+    return request(app)
+      .delete('/api/v1/reviewers/1')
+      .then((res) => {
+        expect(res.body).toEqual({ success: '👍' });
+      });
+  });
+
 });
