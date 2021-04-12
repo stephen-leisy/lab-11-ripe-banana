@@ -218,35 +218,65 @@ describe('film routes', () => {
 
   let actors;
   beforeEach(() => {
-    actors = Actor.create({
-      name: 'Michael Gary Scott',
-      dob: '1965-03-15',
-      pob: 'Scranton, PA'
-    });
+    actors = Actor.create([
+      {
+        name: 'Michael Gary Scott',
+        dob: '1965-03-15',
+        pob: 'Scranton, PA'
+      },
+      {
+        name: 'Dwight Schrute',
+        dob: '1970-01-20',
+        pob: 'Scranton, PA'
+      }
+    ]);
   });
+
+  let studios;
+  beforeEach(() => {
+    studios = Studio.create({
+      name: 'Micael Scott Productions',
+      city: 'Scranton',
+      state: 'PA',
+      country: 'USA',
+    })
+  })
 
   it('creates a film', () => {
     return request(app)
       .post('/api/v1/films')
       .send({
         title: 'Threat Level Midnight',
-        studio: 'Michael Scott Productions',
+        studio: 1,
         released: 2007,
-        cast: [{
-          role: 'Michael Scarn',
-          actor: 1
-        }]
+        cast: [
+          {
+            role: 'Michael Scarn',
+            actor: 1
+          },
+          {
+            role: 'Dwigt',
+            actor: 2
+          }
+        ]
       })
       .then((res) => {
         expect(res.body).toEqual({
+          id: 1,
           title: 'Threat Level Midnight',
-          studio: 'Michael Scott Productions',
+          studio: 1,
           released: 2007,
-          cast: [{
-            role: 'Michael Scarn',
-            actor: 1
-        }]
-        });
+          cast: [
+            {
+              role: 'Michael Scarn',
+              actor: 1
+            },
+            {
+              role: 'Dwigt',
+              actor: 2
+            }
+          ]
+      });
       });
   });
 
