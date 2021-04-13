@@ -288,7 +288,7 @@ describe.only('film routes', () => {
   });
 
   it('gets all films', () => {
-    return Request(app)
+    return request(app)
       .get('/api/v1/films')
       .then((res) => {
         expect(res.body).toEqual([
