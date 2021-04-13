@@ -240,7 +240,7 @@ describe.only('film routes', () => {
   beforeEach(async() => {
     films = await Film.create({
       title: 'Threat Level Midnight Too',
-      StudioId: 1,
+      studioId: 1,
       released: 2007,
       cast: [
         {
@@ -264,7 +264,7 @@ describe.only('film routes', () => {
       .post('/api/v1/films/')
       .send({
         title: 'Threat Level Midnight',
-        StudioId: 1,
+        studioId: 1,
         released: 2007,
         cast: [
           {
@@ -281,7 +281,7 @@ describe.only('film routes', () => {
         expect(res.body).toEqual({
           id: 2,
           title: 'Threat Level Midnight',
-          StudioId: 1,
+          studioId: 1,
           released: 2007,
           cast: [
             {
@@ -301,13 +301,12 @@ describe.only('film routes', () => {
     return request(app)
       .get('/api/v1/films')
       .then((res) => {
-        console.log('HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII', res.body)
         expect(res.body).toEqual([
           {
             id: 1,
             title: 'Threat Level Midnight Too',
             released: 2007,
-            Studio: {
+            studio: {
               id: 1,
               name: 'Michael Scott Productions',
             },
