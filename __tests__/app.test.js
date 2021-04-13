@@ -1,3 +1,4 @@
+require('../lib/models/associations');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
@@ -211,11 +212,35 @@ describe.only('film routes', () => {
     return db.sync({ force: true });
   });
 
+  let studios;
+  beforeEach(async() => {
+    studios = await Studio.create({
+      name: 'Michael Scott Productions',
+      city: 'Scranton',
+      state: 'PA',
+      country: 'USA',
+    });
+  });
+
+  let actors;
+  beforeEach(async() => {
+    actors = await Actor.bulkCreate([{
+      name: 'Michael Gary Scott',
+      dob: '1965-03-15',
+      pob: 'Scranton, PA',
+    },
+    {
+      name: 'Dwight Schrute',
+      dob: '1970-01-20',
+      pob: 'Scranton, PA',
+    }]);
+  });
+
   let films;
-  beforeEach(() => {
-    films = Film.create({
+  beforeEach(async() => {
+    films = await Film.create({
       title: 'Threat Level Midnight Too',
-      studio: 1,
+      StudioId: 1,
       released: 2007,
       cast: [
         {
@@ -230,31 +255,16 @@ describe.only('film routes', () => {
     });
   });
 
-  let actors;
-  beforeEach(() => {
-    actors = Actor.create({
-      name: 'Michael Gary Scott',
-      dob: '1965-03-15',
-      pob: 'Scranton, PA',
-    });
-  });
-
-  let studios;
-  beforeEach(() => {
-    studios = Studio.create({
-      name: 'Michael Scott Productions',
-      city: 'Scranton',
-      state: 'PA',
-      country: 'USA',
-    });
-  });
+  // afterAll(() => {
+  //   return db.close();
+  // })
 
   it('creates a film', () => {
     return request(app)
-      .post('/api/v1/films')
+      .post('/api/v1/films/')
       .send({
         title: 'Threat Level Midnight',
-        studio: 1,
+        StudioId: 1,
         released: 2007,
         cast: [
           {
@@ -271,7 +281,7 @@ describe.only('film routes', () => {
         expect(res.body).toEqual({
           id: 2,
           title: 'Threat Level Midnight',
-          studio: 1,
+          StudioId: 1,
           released: 2007,
           cast: [
             {
@@ -286,17 +296,18 @@ describe.only('film routes', () => {
         });
       });
   });
-
+  
   it('gets all films', () => {
     return request(app)
       .get('/api/v1/films')
       .then((res) => {
+        console.log('HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII', res.body)
         expect(res.body).toEqual([
           {
             id: 1,
             title: 'Threat Level Midnight Too',
             released: 2007,
-            studio: {
+            Studio: {
               id: 1,
               name: 'Michael Scott Productions',
             },
